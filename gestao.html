@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Espaços</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Sistema de Reservas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="reserva.html">Reservar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Deslogar</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    <div class="container mt-4">
+        <h2>Gestão de Espaços</h2>
+        <div id="espacoForm">
+            <input type="text" id="nomeEspaco" class="mb-2 form-control" placeholder="Nome do Espaço">
+            <input type="text" id="tipoEspaco" class="mb-2 form-control" placeholder="Tipo de Espaço">
+            <input type="number" id="capacidadeEspaco" class="mb-2 form-control" placeholder="Capacidade Máxima">
+            <button id="adicionarEspaco" class="btn btn-primary mb-4 mt-2">Adicionar Espaço</button>
+        </div>
+        <h2>Espaços Existentes</h2>
+        <ul id="listaEspacos" class="list-group"></ul>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
