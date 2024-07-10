@@ -27,18 +27,29 @@
         </div>
     </nav>
     
-    
     <div class="container mt-4">
         <h2>Gestão de Espaços</h2>
-        <div id="espacoForm">
-            <input type="text" id="nomeEspaco" class="mb-2 form-control" placeholder="Nome do Espaço">
-            <input type="text" id="tipoEspaco" class="mb-2 form-control" placeholder="Tipo de Espaço">
-            <input type="number" id="capacidadeEspaco" class="mb-2 form-control" placeholder="Capacidade Máxima">
-            <button id="adicionarEspaco" class="btn btn-primary mb-4 mt-2">Adicionar Espaço</button>
-        </div>
-        <h2>Espaços Existentes</h2>
-        <ul id="listaEspacos" class="list-group"></ul>
+        <ul id="listaEspacos" class="list-group">
+            <!-- espaços existentes serão relacionados aqui -->
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Sala G</span>
+                <button class="btn btn-sm btn-success" data-index="0">ativo</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Quadra</span>
+                <button class="btn btn-sm btn-success" data-index="0">ativo</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Sala M</span>
+                <button class="btn btn-sm btn-danger" data-index="0">desativado</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Salão P</span>
+                <button class="btn btn-sm btn-success" data-index="0">ativo</button>
+            </li>
+        </ul>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
