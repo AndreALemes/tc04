@@ -1,16 +1,43 @@
-const listPlaces = document.querySelector("#list");
-let espacos = [];
+let espacos = [
+    {
+        id: 1,
+        tipo: "quadra esportiva",
+        nome: "quadra de futebol",
+        status: "ativo"
+    },
+    {
+        id: 2,
+        tipo: "quadra esportiva",
+        nome: "quadra de volei",
+        status: "ativo"
+    },
+    {
+        id: 3,
+        tipo: "sala de reunião",
+        nome: "sala G",
+        status: "ativo"
+    },
+    {
+        id: 4,
+        tipo: "sala de reunião",
+        nome: "sala P",
+        status: "ativo"
+    },
+    {
+        id: 5,
+        tipo: "salão de festa",
+        nome: "salão grande",
+        status: "Desativado"
+    },
+    {
+        id: 6,
+        tipo: "salão de festa",
+        nome: "salão médio",
+        status: "ativo"
+    },
+];
 
-async function fetchEspacos() {
-    try {
-        const response = await fetch('espacos.json');
-        espacos = await response.json();
-        renderList();
-    } catch (error) {
-        console.error("Erro ao carregar os dados:", error);
-        listPlaces.innerHTML = '<div>Erro ao carregar os dados</div>';
-    }
-}
+const listPlaces = document.querySelector("#list");
 
 function renderList() {
     let list = "";
@@ -22,26 +49,27 @@ function renderList() {
             list += 
                 `<li class="list-group-item d-flex justify-content-between align-items-center"> 
                     <span>${espaco.nome}</span>
-                    <button class="btn btn-sm btn-success" data-index="${index}">${espaco.status}</button>
+                    <button class="btn btn-sm btn-${espaco.status === 'ativo' ? 'success' : 'danger'}" data-index="${index}">
+                        ${espaco.status}
+                    </button>
                 </li>`;
         });
     }
 
     listPlaces.innerHTML = list;
 
-    // Adicionar evento de clique aos botões após renderizar a lista
-    document.querySelectorAll("button[data-index]").forEach(button => {
-        button.addEventListener("click", (event) => {
-            const index = event.target.getAttribute("data-index");
+    // Adiciona event listener aos botões após renderizar a lista
+    document.querySelectorAll("#list button").forEach(button => {
+        button.addEventListener("click", function() {
+            const index = this.getAttribute("data-index");
             toggleStatus(index);
         });
     });
 }
 
 function toggleStatus(index) {
-    // Alternar status entre "ativo" e "desativado"
-    espacos[index].status = espacos[index].status === "ativo" ? "desativado" : "ativo";
-    renderList();  // Re-renderizar a lista para refletir a mudança de status
+    espacos[index].status = espacos[index].status === "ativo" ? "Desativado" : "ativo";
+    renderList();
 }
 
-document.addEventListener("DOMContentLoaded", fetchEspacos);
+renderList();

@@ -47,10 +47,10 @@
                 // Verifica se as credenciais correspondem a um usuário válido
                 if (usuarios.admin.email === email && usuarios.admin.senha === senha) {
                     currentUser = usuarios.admin.tipo;
-                    window.location.href = 'reserva.html';
+                    window.location.href = 'reservaAdm.html';
                 } else if (usuarios.cliente.email === email && usuarios.cliente.senha === senha) {
                     currentUser = usuarios.cliente.tipo;
-                    window.location.href = 'reserva.html';
+                    window.location.href = 'reservaCliente.html';
                     
                 } else {
                     alert('Credenciais inválidas. Por favor, tente novamente.');
