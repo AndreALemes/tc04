@@ -1,42 +1,3 @@
-let espacos = [
-    {
-        id: 1,
-        tipo: "quadra esportiva",
-        nome: "quadra de futebol",
-        status: "Desativado"
-    },
-    {
-        id: 2,
-        tipo: "quadra esportiva",
-        nome: "quadra de volei",
-        status: "ativo"
-    },
-    {
-        id: 3,
-        tipo: "sala de reunião",
-        nome: "sala G",
-        status: "ativo"
-    },
-    {
-        id: 4,
-        tipo: "sala de reunião",
-        nome: "sala P",
-        status: "ativo"
-    },
-    {
-        id: 5,
-        tipo: "salão de festa",
-        nome: "salão grande",
-        status: "Desativado"
-    },
-    {
-        id: 6,
-        tipo: "salão de festa",
-        nome: "salão médio",
-        status: "ativo"
-    },
-];
-
 // Funções de Gestão de Espaços
 const listPlaces = document.querySelector("#list");
 
@@ -99,23 +60,51 @@ function resetarCampos() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Carregar opções do select com base nos nomes dos espaços ativos
-    const selectEspaco = document.getElementById('espacoSelect');
-    if (selectEspaco) {
-        espacos.forEach(espaco => {
-            if (espaco.status === 'ativo') {
-                const option = document.createElement('option');
-                option.value = espaco.nome;
-                option.textContent = espaco.nome;
-                selectEspaco.appendChild(option);
-            }
-        });
-    }
+    // Fetch data from the API
+    const myHeaders = new Headers();
+    myHeaders.append("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bHVubGxlYWxjbWt6c2Rna3lxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAyOTYwODAsImV4cCI6MjAzNTg3MjA4MH0.bw82z1xKUP0DB5D-nJFf6mZxLtBHMzODrz2rmggVdj0");
+    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bHVubGxlYWxjbWt6c2Rna3lxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAyOTYwODAsImV4cCI6MjAzNTg3MjA4MH0.bw82z1xKUP0DB5D-nJFf6mZxLtBHMzODrz2rmggVdj0");
 
-    // Inicializar o menu de salas vazio se estiver na página de reserva
-    if (document.getElementById('espacoSelect')) {
-        document.getElementById('espacoSelect').selectedIndex = -1;
-    }
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch("https://etlunllealcmkzsdgkyq.supabase.co/rest/v1/espaco?select=*", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            espacos = result.map(espaco => ({
+                id: espaco.id,
+                tipo: espaco.tipo_de_espaco,
+                nome: espaco.nome_do_espaco,
+                status: espaco.ativo ? "ativo" : "Desativado"
+            }));
+            
+            // Carregar opções do select com base nos nomes dos espaços ativos
+            const selectEspaco = document.getElementById('espacoSelect');
+            if (selectEspaco) {
+                espacos.forEach(espaco => {
+                    if (espaco.status === 'ativo') {
+                        const option = document.createElement('option');
+                        option.value = espaco.nome;
+                        option.textContent = espaco.nome;
+                        selectEspaco.appendChild(option);
+                    }
+                });
+            }
+
+            // Inicializar o menu de salas vazio se estiver na página de reserva
+            if (document.getElementById('espacoSelect')) {
+                document.getElementById('espacoSelect').selectedIndex = -1;
+            }
+
+            // Renderizar lista de espaços se estivermos na página de gestão de espaços
+            if (document.getElementById('list')) {
+                renderList();
+            }
+        })
+        .catch((error) => console.error(error));
 
     // Adicionar evento de clique ao botão de verificação de disponibilidade
     if (document.getElementById('dateSearch')) {
@@ -163,10 +152,5 @@ document.addEventListener("DOMContentLoaded", function() {
                 resetarCampos(); // Resetar campos de data e espaço
             }
         });
-    }
-
-    // Renderizar lista de espaços se estivermos na página de gestão de espaços
-    if (document.getElementById('list')) {
-        renderList();
     }
 });
